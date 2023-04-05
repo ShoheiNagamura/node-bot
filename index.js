@@ -79,12 +79,12 @@ function sendNotification() {
 
 
     // ②
-    console.log('test定期実行1');
+    console.log('定期実行確認');
     axios.get('https://docs.google.com/spreadsheets/d/e/2PACX-1vRFI98A5rPx4jcdCl4kqV3GVW5FDaIPjwoQACm3Wtnvbx0h3-QGUY7iB46_giXpAOd13gBm7Q1G92CJ/pub?output=csv')
         .then(function (response) {
             // 読み込んだデータをJSONに変換
             csvtojson({
-                noheader: true,  // 1行目がヘッダーの場合はfalse
+                noheader: false,  // 1行目がヘッダーの場合はfalse
                 output: "csv"
             })
                 .fromString(response.data)
