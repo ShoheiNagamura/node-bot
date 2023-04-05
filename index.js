@@ -25,97 +25,99 @@ let sheetData;
 
 //定期通知関数
 function sendNotification() {
-    sheetData = "";
-    console.log('test定期実行1');
 
-    // sheetData が未定義の場合、スプレッドシートのデータを取得して sheetData に代入する
-    if (!sheetData) {
-        axios.get('https://docs.google.com/spreadsheets/d/e/2PACX-1vRFI98A5rPx4jcdCl4kqV3GVW5FDaIPjwoQACm3Wtnvbx0h3-QGUY7iB46_giXpAOd13gBm7Q1G92CJ/pub?output=csv')
-            .then(function (response) {
-                // 読み込んだデータをJSONに変換して sheetData に代入する
-                csvtojson({
-                    noheader: false,  // 1行目がヘッダーの場合はfalse
-                    output: "csv"
-                })
-                    .fromString(response.data)
-                    .then((csvRow) => {
-                        sheetData = csvRow;
-                    })
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-        return;
-    }
+    // ③
+    // sheetData = "";
+    // console.log('test定期実行1');
 
-    console.log(sheetData[0][2]);
-    const options = {
-        url: 'https://api.line.me/v2/bot/message/push',
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + TOKEN,
-        },
-        json: {
-            to: 'U702207f57cdec590f64165c6c227900d',
-            messages: [
-                {
-                    type: 'text',
-                    text: sheetData[0][2]
-                }
-            ]
-        }
-    };
+    // // sheetData が未定義の場合、スプレッドシートのデータを取得して sheetData に代入する
+    // if (!sheetData) {
+    //     axios.get('https://docs.google.com/spreadsheets/d/e/2PACX-1vRFI98A5rPx4jcdCl4kqV3GVW5FDaIPjwoQACm3Wtnvbx0h3-QGUY7iB46_giXpAOd13gBm7Q1G92CJ/pub?output=csv')
+    //         .then(function (response) {
+    //             // 読み込んだデータをJSONに変換して sheetData に代入する
+    //             csvtojson({
+    //                 noheader: true,  // 1行目がヘッダーの場合はfalse
+    //                 output: "csv"
+    //             })
+    //                 .fromString(response.data)
+    //                 .then((csvRow) => {
+    //                     sheetData = csvRow;
+    //                 })
+    //         })
+    //         .catch(function (error) {
+    //             console.log(error);
+    //         });
+    //     return;
+    // }
 
-    request(options, (error, response, body) => {
-        console.log(response.body);
-        if (error) {
-            console.error(error);
-        }
-    });
+    // console.log(sheetData[0][2]);
+    // const options = {
+    //     url: 'https://api.line.me/v2/bot/message/push',
+    //     method: 'POST',
+    //     headers: {
+    //         'Content-Type': 'application/json',
+    //         'Authorization': 'Bearer ' + TOKEN,
+    //     },
+    //     json: {
+    //         to: 'U702207f57cdec590f64165c6c227900d',
+    //         messages: [
+    //             {
+    //                 type: 'text',
+    //                 text: sheetData[0][2]
+    //             }
+    //         ]
+    //     }
+    // };
+
+    // request(options, (error, response, body) => {
+    //     console.log(response.body);
+    //     if (error) {
+    //         console.error(error);
+    //     }
+    // });
 
 
 
     // ②
-    // console.log('test定期実行1');
-    // axios.get('https://docs.google.com/spreadsheets/d/e/2PACX-1vRFI98A5rPx4jcdCl4kqV3GVW5FDaIPjwoQACm3Wtnvbx0h3-QGUY7iB46_giXpAOd13gBm7Q1G92CJ/pub?output=csv')
-    //     .then(function (response) {
-    //         // 読み込んだデータをJSONに変換
-    //         csvtojson({
-    //             noheader: true,  // 1行目がヘッダーの場合はfalse
-    //             output: "csv"
-    //         })
-    //             .fromString(response.data)
-    //             .then((csvRow) => {
-    //                 console.log(csvRow[0][2]);
-    //                 const options = {
-    //                     url: 'https://api.line.me/v2/bot/message/push',
-    //                     method: 'POST',
-    //                     headers: {
-    //                         'Content-Type': 'application/json',
-    //                         'Authorization': 'Bearer ' + TOKEN,
-    //                     },
-    //                     json: {
-    //                         to: 'U702207f57cdec590f64165c6c227900d',
-    //                         messages: [
-    //                             {
-    //                                 type: 'text',
-    //                                 text: csvRow[0][2]
-    //                             }
-    //                         ]
-    //                     }
-    //                 };
-    //                 request(options, (error, response, body) => {
-    //                     console.log(response.body);
-    //                     if (error) {
-    //                         console.error(error);
-    //                     }
-    //                 });
-    //             })
-    //     })
-    //     .catch(function (error) {
-    //         console.log(error);
-    //     });
+    console.log('test定期実行1');
+    axios.get('https://docs.google.com/spreadsheets/d/e/2PACX-1vRFI98A5rPx4jcdCl4kqV3GVW5FDaIPjwoQACm3Wtnvbx0h3-QGUY7iB46_giXpAOd13gBm7Q1G92CJ/pub?output=csv')
+        .then(function (response) {
+            // 読み込んだデータをJSONに変換
+            csvtojson({
+                noheader: true,  // 1行目がヘッダーの場合はfalse
+                output: "csv"
+            })
+                .fromString(response.data)
+                .then((csvRow) => {
+                    console.log(csvRow[0][2]);
+                    const options = {
+                        url: 'https://api.line.me/v2/bot/message/push',
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': 'Bearer ' + TOKEN,
+                        },
+                        json: {
+                            to: 'U702207f57cdec590f64165c6c227900d',
+                            messages: [
+                                {
+                                    type: 'text',
+                                    text: `本日の値は：${csvRow[0][2]}`
+                                }
+                            ]
+                        }
+                    };
+                    request(options, (error, response, body) => {
+                        console.log(response.body);
+                        if (error) {
+                            console.error(error);
+                        }
+                    });
+                })
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
 
 
     // ①
@@ -170,7 +172,7 @@ function sendNotification() {
 }
 
 // 定期関数呼び出し
-cron.schedule('*/30 * * * * *', () => {
+cron.schedule('*/60 * * * * *', () => {
     sendNotification();
 }, {
     timezone: 'Asia/Tokyo'
@@ -178,6 +180,7 @@ cron.schedule('*/30 * * * * *', () => {
 
 
 
+// サンプルコード 通信確認用
 // app.get("/", (req, res) => {
 //     res.sendStatus(200)
 // })
