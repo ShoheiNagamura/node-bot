@@ -2,6 +2,7 @@ const https = require("https")
 const express = require("express")
 const app = express()
 const PORT = process.env.PORT || 3001
+//チャネルのアクセストークン
 const TOKEN = "rlWgREj4WwvTHV37sQEzUWv1KomK1mPnp7QtrpM7ZCZ+ck6ra73RdGyr+Cv+LWxeZ8CT9x3XAD+jx+GI9ml73d++x/GiIh6PIjF27ZFp/vs9JDAfR/Zkcc5uDxV3qpOhzwHbiURqkTdS7uEHJrNgTgdB04t89/1O/w1cDnyilFU=";
 
 const cron = require('node-cron');
@@ -80,6 +81,7 @@ function sendNotification() {
 
     // ②
     console.log('定期実行確認');
+    //スプレッドシートのCSV用URLパス
     axios.get('https://docs.google.com/spreadsheets/d/e/2PACX-1vRFI98A5rPx4jcdCl4kqV3GVW5FDaIPjwoQACm3Wtnvbx0h3-QGUY7iB46_giXpAOd13gBm7Q1G92CJ/pub?output=csv')
         .then(function (response) {
             // 読み込んだデータをJSONに変換
@@ -98,6 +100,7 @@ function sendNotification() {
                             'Authorization': 'Bearer ' + TOKEN,
                         },
                         json: {
+                            // チャネルのユーザーID
                             to: 'U702207f57cdec590f64165c6c227900d',
                             messages: [
                                 {
